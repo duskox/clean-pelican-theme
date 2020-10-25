@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="custom.scss">
 
         {% block head %}
-        <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
         {% if FEED_ALL_ATOM %}
         <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
         {% endif %}
@@ -41,54 +40,21 @@
 
 <body>
         <div class="container mt-3">
-
-        <nav class="nav-bar navbar border border-dark text-black">
-                {% block navigacija %}
-                {% endblock navigacija %}
-                <a class="nav-link text-reset" href="/text.html">text</a>
-                <a class="nav-link text-reset" href="/image.html">image</a>
-                <div class="flex-grow-1"></div>
-                {% block kontakt %}
-                {% endblock kontakt %}
-                <a class="nav-link text-reset" href="/contact.html">contact</a>
-        </nav>
-
-        <div class="row">
-                <div class="col">
-                <h1>Naslov</h1>
-                <div>
-                        Clanak
-                </div>
-                </div>
-                <div class="col col-lg-2">
-                <div class="custom-list mt-3 ml-3">
-                        <div><a class="text-reset mt-0 custom-list-item" href="">link</a></div>
-                        <div><a class="text-reset mt-0 custom-list-item" href="">drugi link</a></div>
-                        <div><a class="text-reset mt-0 custom-list-item" href="">treci link</a></div>
-                </div>
+                <nav class="nav-bar navbar border border-dark text-black">
+                        <!-- Navigacija TAG-ova -->
+                        {% for cat, null in categories %}
+                                <a class="nav-link text-reset" href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a>
+                        {% endfor %}
+                        <div class="flex-grow-1"></div>
+                        <!-- Navigacija PAGES-a -->
+                        {% for p in pages %}
+                        <a class="nav-link text-reset" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                        {% endfor %}
+                </nav>
+                <div class="row">
+                        {% block content %}
+                        {% endblock %}
                 </div>
         </div>
-            
-        </div>
-        <header id="banner" class="body">
-                <h1><a href="{{ SITEURL }}/">{{ SITENAME }}{% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-        {% for title, link in MENUITEMS %}
-            <li><a href="{{ link }}">{{ title }}</a></li>
-        {% endfor %}
-        <!-- {% if DISPLAY_PAGES_ON_MENU %}
-          {% for p in pages %}
-            <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
-          {% endfor %}
-        {% endif %} -->
-        <!-- {% if DISPLAY_CATEGORIES_ON_MENU %}
-          {% for cat, null in categories %}
-            <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-          {% endfor %}
-        {% endif %} -->
-        </ul></nav><!-- /#menu -->
-        {% block content %}
-        {% endblock %}
 </body>
 </html>
