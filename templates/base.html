@@ -21,7 +21,9 @@
                         {% for cat, null in categories %}
                                 <a class="nav-link text-reset" href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a>
                         {% endfor %}
-                        <div class="flex-grow-1"></div>
+                        <div class="mx-auto">
+                                <a class="text-reset" href="{{ SITEURL }}"><img src="./theme/images/home_symbol.svg" alt="home" /></a>
+                        </div>
                         <!-- Navigacija PAGES-a -->
                         {% for p in pages %}
                         <a class="nav-link text-reset" href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
